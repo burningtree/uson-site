@@ -23,6 +23,7 @@
   <link href="uson.css" media="all" rel="stylesheet" />
 
   <script src="uson.js"></script>
+  <script src="module.bundle.js"></script>
 </head>
 
 <body>
@@ -85,7 +86,7 @@ key1:value1 key2:value2
 
 
   <script type="text/javascript">
-    var USON = require('../js/uson.js');
+
     var usons = Array.prototype.slice.call(document.getElementsByTagName('uson'));
     usons.forEach(function(uson) {
       var div = document.createElement('div');
