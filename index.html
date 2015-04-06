@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html en="en">
+<head>
+  <title>μson (uson) - a shorthand for JSON </title>
+
+  <meta charset='utf-8'>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <meta name="description" content="A compact human-readable data serialization format especially designed for shell.">
+  <!--meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="http://uson.github.org/">
+  <meta name="twitter:title" content="uson">
+  <meta name="twitter:description" content="">
+  <meta name="twitter:image" content="">
+  <meta name="og:image" content="">
+  <meta name="og:site_name" content="">
+  <meta name="og:url" content=""-->
+
+  <link rel="canonical" href="http://uson.github.org/" />
+  <link href="poole.css" media="all" rel="stylesheet" />
+  <link href="hyde.css" media="all" rel="stylesheet" />
+  <link href="uson.css" media="all" rel="stylesheet" />
+
+  <script src="js/uson.js"></script>
+</head>
+
+<body>
+
+<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <div><img style="margin:0 auto; display: block;" src="/assets/logo.png" width="200"></div>
+      <h1>μson</h1>
+      <p class="lead">A compact human-readable data serialization format especially designed for shell.</p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li class="sidebar-nav-item sidebar-nav-hash"><a href="#resources">Resources</a></li>
+      <li class="sidebar-nav-item sidebar-nav-hash"><a href="#demo">Demo</a></li>
+      <li class="sidebar-nav-item sidebar-nav-hash"><a href="#usage">Usage</a></li>
+      <li class="sidebar-nav-item"><a href="/">Spec</a></li>
+    </ul>
+    <p class="rear">JSON shorthand.</p>
+  </div>
+</div>
+
+<div class="content container">
+  <h2>What is μson?</h2>
+
+  <hr>
+
+  <h3 id="why-not">Why not YAML? Or JSON?</h3>
+
+  <h3 id="practice">How Does It Work in Practice?</h3>
+
+  <h2 id="resources">Resources</h2>
+
+  <p>Available implementations:</p>
+
+  <ul>
+    <li>
+      <strong>JavaScript</strong> 
+      <ul>
+        <li>
+          <strong>uson</strong>
+          <ul>
+            <li><a href="https://github.com/burningtree/uson">Github</a></li>
+            <li><a href="https://www.npmjs.com/package/uson">Node Package Manager</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+  <h2 id="demo">Introductory Demo</h2>
+
+  <h3>Keys and values</h3>
+
+  <p>Description ..</p>
+
+<uson>
+key1:value1 key2:value2
+</uson>
+
+
+  <script type="text/javascript">
+    var USON = require('../js/uson.js');
+    var usons = Array.prototype.slice.call(document.getElementsByTagName('uson'));
+    usons.forEach(function(aml) {
+      var div = document.createElement('div');
+      div.setAttribute('class', 'example');
+      div.appendChild(document.createElement('div'));
+      div.appendChild(document.createElement('div'));
+      div.children[0].appendChild(document.createElement('textarea'));
+      div.children[1].appendChild(document.createElement('pre'));
+      var content = aml.innerText || aml.childNodes[0].data;
+      div.children[0].children[0].value = content.replace(/(^\n)|(\n$)/g, '');
+
+      var parent = aml.parentNode;
+      parent.insertBefore(div, aml.nextSibling);
+      parent.removeChild(aml);
+
+      var source = div.children[0].children[0];
+      var destination = source.parentNode.parentNode.children[1].children[0];
+      source.style['min-height'] = (source.scrollHeight + 2) + 'px';
+      source.addEventListener('keyup', function(e) {
+        destination.innerHTML = JSON.stringify(USON.parse(source.value), null, 2);
+      });
+      source.dispatchEvent(new Event('keyup'));
+    });
+  </script>
+
+  <hr>
+
+  <h2 id="usage">Usage</h2>
+
+  <hr>
+
+  <p style="font-size:.8em;opacity:0.5;">Created by <a href="https://github.com/burningtree">Jan Stránský</a></p>
+  <p style="font-size:.8em;opacity:0.5;">Copyright (c) 2015 Jan Stránský</p>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-XXXXXX-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+</div>
+
+</body>
+</html>
