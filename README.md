@@ -1,4 +1,4 @@
 # μson (uson)
 
-This codebase powers the [uson.github.com](http://uson.github.com) website.
+This codebase powers the [burningtree.github.com/uson-site](http://burningtree.github.io/uson-site/) website.
 
