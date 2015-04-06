@@ -1,2 +1,2 @@
 all:
-	cp ../uson/dist/uson.pack.js uson.js
+	cp bower_components/uson/dist/uson.min.js uson.js

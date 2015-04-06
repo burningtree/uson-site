@@ -1,0 +1,19 @@
+{
+  "name": "uson-site",
+  "version": "0.1.0",
+  "homepage": "https://github.com/burningtree/uson-site",
+  "authors": [
+    "Jan Stránský <jan.stransky@arnal.cz>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "uson": "~0.1.1"
+  }
+}
