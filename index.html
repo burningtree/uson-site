@@ -18,12 +18,16 @@
   <meta name="og:url" content=""-->
 
   <link rel="canonical" href="http://burningtree.github.org/uson-site" />
-  <link href="poole.css" media="all" rel="stylesheet" />
-  <link href="hyde.css" media="all" rel="stylesheet" />
-  <link href="uson.css" media="all" rel="stylesheet" />
+  <link href="css/poole.css" media="all" rel="stylesheet" />
+  <link href="css/hyde.css" media="all" rel="stylesheet" />
+  <link href="css/uson.css" media="all" rel="stylesheet" />
+  <link href="css/prism.css" media="all" rel="stylesheet" />
+  <link href='http://fonts.googleapis.com/css?family=Noto+Sans|Inconsolata' rel='stylesheet' type='text/css'>
 
-  <script src="uson.js"></script>
-  <script src="module.bundle.js"></script>
+  <script src="js/uson.js"></script>
+  <script src="js/js-yaml.js"></script>
+  <script src="js/prism.js"></script>
+  <script src="js/prism-yaml.js"></script>
 </head>
 
 <body>
@@ -42,7 +46,7 @@
       <li class="sidebar-nav-item sidebar-nav-hash"><a href="#usage">Usage</a></li>
       <li class="sidebar-nav-item"><a href="/">Spec</a></li>
     </ul>
-    <p class="rear">JSON shorthand.</p>
+    <p class="rear">Shorthand syntax for JSON.</p>
   </div>
 </div>
 
@@ -84,17 +88,86 @@
 key1:value1 key2:value2
 </uson>
 
+  <p>Next example:</p>
+
+<uson>
+x:x:x:[x:x:{x:250}]
+</uson>
+
 
   <script type="text/javascript">
 
+    var format = 'json';
+    var objectMode = false;
     var usons = Array.prototype.slice.call(document.getElementsByTagName('uson'));
     usons.forEach(function(uson) {
+
+      function onChangeFormat(e){
+        var dest = e.target.parentElement.parentElement.children[0];
+        var src = e.target.parentElement.parentElement.parentElement.children[0].children[0];
+        format = e.target.id;
+        if(format == 'json') {
+          options.children[0].style.display = 'inline-block';
+          options.children[1].style.display = 'none';
+        } else {
+          options.children[0].style.display = 'none';
+          options.children[1].style.display = 'inline-block';
+        }
+        showResults(source, destination, format);
+        return false;
+      };
+
+      function showResults(source, destination, format){
+        format = format || 'json';
+        var parsed = USON.parse(source.value, objectMode);
+        var output = null;
+        if(format == 'yaml') {
+          output = jsyaml.dump(parsed);
+        } else {
+          output = JSON.stringify(parsed, null, 2);
+        }
+        destination.innerHTML = output;
+        destination.className = 'language-'+(format == 'json' ? 'javascript' : 'yaml');
+        Prism.highlightElement(destination);
+      };
       var div = document.createElement('div');
+      var options = document.createElement('div');
+      options.appendChild(document.createElement('a'));
+      options.appendChild(document.createElement('a'));
+      options.appendChild(document.createElement('div'));
+      options.children[0].innerText = 'Switch to YAML';
+      options.children[0].href = '#yaml';
+      options.children[0].id = 'yaml';
+      options.children[1].innerText = 'Switch to JSON';
+      options.children[1].style.display = 'none';
+      options.children[1].id = 'json';
+      options.children[1].href = '#json';
+
+      options.children[0].addEventListener('click', onChangeFormat); 
+      options.children[1].addEventListener('click', onChangeFormat); 
+
+      options.children[2].className = 'objectmode-option';
+      options.children[2].appendChild(document.createElement('input'));
+      options.children[2].appendChild(document.createElement('label'));
+
+      options.children[2].children[1].innerText = ' object mode';
+      options.children[2].children[0].id = 'object-mode';
+      options.children[2].children[0].type = 'checkbox';
+      options.children[2].children[0].addEventListener('change', function(e){
+        var dest = e.target.parentElement.parentElement.parentElement.children[0].children[0];
+        var src = e.target.parentElement.parentElement.parentElement.parentElement.children[0].children[0];
+        objectMode = (e.target.checked);
+        showResults(source, destination, format);
+      });
+
+
       div.setAttribute('class', 'example');
       div.appendChild(document.createElement('div'));
       div.appendChild(document.createElement('div'));
       div.children[0].appendChild(document.createElement('textarea'));
       div.children[1].appendChild(document.createElement('pre'));
+      div.children[1].children[0].appendChild(document.createElement('code'));
+      div.children[1].appendChild(options);
       var content = uson.innerText || uson.childNodes[0].data;
       div.children[0].children[0].value = content.replace(/(^\n)|(\n$)/g, '');
 
@@ -103,10 +176,10 @@ key1:value1 key2:value2
       parent.removeChild(uson);
 
       var source = div.children[0].children[0];
-      var destination = source.parentNode.parentNode.children[1].children[0];
+      var destination = source.parentNode.parentNode.children[1].children[0].children[0];
       source.style['min-height'] = (source.scrollHeight + 2) + 'px';
       source.addEventListener('keyup', function(e) {
-        destination.innerHTML = JSON.stringify(USON.parse(source.value), null, 2);
+        showResults(source, destination, format);
       });
       source.dispatchEvent(new Event('keyup'));
     });

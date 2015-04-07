@@ -1,12 +1,11 @@
 html {
-  font-family: "nyt-franklin", arial, helvetica, sans-serif;
+  font-family: "Noto Sans", arial, helvetica, sans-serif;
 }
 .sidebar-about h1 {
   font-size: 3rem;
 }
 .sidebar-nav-hash:before {
   content: "#";
-  font-family: "nyt-stymie", serif;
   color: #fff;
   margin: 0 8px 0 0;
 }
@@ -44,7 +43,6 @@ html {
   font-size: 2rem;
 }
 h1, h2, h3, h4, h5, h6 {
-  font-family: "nyt-stymie", serif;
 }
 div.example {
   margin-bottom: 15px;
@@ -97,7 +95,6 @@ h3 ~ div > div:before {
   font-size: 16px;
   display: none;
   color: #888;
-  font-family: "nyt-stymie", serif;
   font-weight: normal;
 }
 h3 ~ div > div:first-child:before {
@@ -119,8 +116,8 @@ h3 + p + p + div > div:last-child:before {
 }
 
 div.example div pre, div div textarea {
-  font-family: Consolas, Monaco, 'Andale Mono', monospace;
-  font-size: 14px;
+  font-family: Inconsolata, Consolas, Monaco, 'Andale Mono', monospace;
+  font-size: 16px;
   color: #333;
   background: #eee;
   width: 100%;
@@ -134,3 +131,7 @@ footer {
   font-size: 0.8rem;
   color: #888;
 }
+
+a#yaml, a#json { cursor: pointer; font-size: 70%; padding-top: 5px; }
+.objectmode-option { float: right; font-size: 70%; padding-top: 5px; }
+
