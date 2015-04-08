@@ -15,7 +15,7 @@
     "bin"
   ],
   "dependencies": {
-    "uson": "~0.1.3",
+    "uson": "~0.2.0",
     "js-yaml": "~3.2.7",
     "prism": "https://github.com/PrismJS/prism.git#gh-pages"
   }
